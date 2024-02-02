@@ -1,0 +1,66 @@
+---
+title: Tourism UML
+---
+
+classDiagram
+  Flight ..> Aircraft 
+  Flight ..> AircraftCrew 
+  AircraftCrew *-- Pilot
+  AircraftCrew *-- CabinCrew
+  Pilot --|> Employee
+  CabinCrew --|> Employee
+
+  class Flight{
+    -Aircraft planeModel
+    -Crew flightCrew
+    -int flightDate
+    +getPlaneModel()
+    +swim()
+    +quack()
+    +eat()
+  }
+  class Aircraft{
+    <<interface>>
+    +fly()
+    +land()
+  }
+  class Helicopter
+  class Plane{
+    -String planeName
+    -int planeReg
+    -int callSign
+    -int fuelAmount
+    +crash()
+    +refuel(fuelAmount)
+
+  }
+  class AircraftCrew{
+    -Array pilotCrew
+    -Array cabinCrew 
+
+  }
+  class Employee{
+    -int employeeNumber
+    -String employeeName
+    -int employee
+
+  }
+  class Pilot{
+    -String pilotLicence 
+    -String firstAidLisence
+    -String daysFlying
+  }
+  class CabinCrew{
+    -String crewPosition
+  }
+  class Cruise{
+    -Ship ship
+    +getShip()
+  }
+  class Ship{
+    -String shipName
+    -int crewNumber
+    +getShipName()
+    +getCrewNumber()
+  }
+

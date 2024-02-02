@@ -36,3 +36,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Mermaid CLI in node modules for UML diagrams
+/report/node_modules/
+
