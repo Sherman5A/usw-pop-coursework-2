@@ -3,55 +3,50 @@ title: Tourism UML
 ---
 
 classDiagram
+  PackageHoliday ..> Flight
+  PackageHoliday ..> Cruise
+  Plane --|> Aircraft
+  Helicopter --|> Aircraft
   Flight ..> Aircraft 
   Flight ..> AircraftCrew 
+  Cruise ..> Ship
+  Ship ..> ShipCrew
   AircraftCrew *-- Pilot
   AircraftCrew *-- CabinCrew
+  ShipCrew *-- ShipCaptain
+  ShipCrew *-- ShipEmployee
   Pilot --|> Employee
   CabinCrew --|> Employee
+  ShipEmployee --|> Employee
+  ShipCaptain --|> Employee
 
+  class PackageHoliday{
+    -String packageType
+    -Flight flight
+    -Cruise cruise
+  }
   class Flight{
-    -Aircraft planeModel
+    -Aircraft aircraft
     -Crew flightCrew
     -int flightDate
-    +getPlaneModel()
-    +swim()
-    +quack()
-    +eat()
   }
   class Aircraft{
     <<interface>>
+    -String aircraftRegistration
+    -String aircraftManufacturer
+    -int fuelAmount
     +fly()
     +land()
+    +getAircraftName()
+    +refuel(fuelAmount)
   }
-  class Helicopter
+  class Helicopter{
+    -String helicopterName
+    +getAircraftName()
+  }
   class Plane{
     -String planeName
-    -int planeReg
     -int callSign
-    -int fuelAmount
-    +crash()
-    +refuel(fuelAmount)
-
-  }
-  class AircraftCrew{
-    -Array pilotCrew
-    -Array cabinCrew 
-
-  }
-  class Employee{
-    -int employeeNumber
-    -String employeeName
-    -int employee
-
-  }
-  class Pilot{
-    -String pilotLicence 
-    -String firstAidLisence
-    -String daysFlying
-  }
-  class CabinCrew{
-    -String crewPosition
   }
   class Cruise{
     -Ship ship
@@ -62,5 +57,35 @@ classDiagram
     -int crewNumber
     +getShipName()
     +getCrewNumber()
+  }
+  class Employee{
+    -int employeeNumber
+    -String employeeName
+    -int employee
+  }
+  class AircraftCrew{
+    -Array pilotCrew
+    -Array cabinCrew 
+  }
+  class ShipCrew{
+    -ShipCaptain shipCaptain
+    -Array shipEmployees
+  }
+  class CabinCrew{
+    -String crewPosition
+  }
+  class Pilot{
+    -String pilotLicence 
+    -String firstAidLisence
+    -String daysFlying
+  }
+  class ShipEmployee{
+    -String crewType
+    -String crewBunk
+    -String crewArea
+  }
+  class ShipCaptain{
+    -String captainLicence
+    -String experience
   }
 
