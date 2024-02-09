@@ -16,19 +16,19 @@ classDiagram
   Flight "1" o-- "1" AircraftCrew 
   AircraftCrew "1" *-- "0..*" CabinCrew
   AircraftCrew "1" *-- "1..*" Pilot
-  Flight o-- Aircraft 
+  Flight "1" o-- "1" Aircraft 
   Plane --|> Aircraft
   Helicopter --|> Aircraft
-  Cruise o-- Ship
+  Cruise "1" o-- "1" Ship
 
-  Ship *-- ShipCrew
-  ShipCrew *-- ShipCaptain
-  ShipCrew *-- ShipEmployee
-  Cruise o-- PackageRep
+  Ship "1" *-- "1" ShipCrew
+  ShipCrew "1" *-- "1" ShipCaptain
+  ShipCrew "1" *-- "*" ShipEmployee
+  Cruise "1" o-- "1..*" PackageRep
 
 
   %% Hotel relations
-  Hotel o-- PackageRep
+  Hotel "1" o-- "1..*" PackageRep
 
   %% Employee relations
   Pilot --|> Employee
@@ -38,7 +38,6 @@ classDiagram
   PackageRep --|> Employee
 
   %% Booking classes
-
   class Customer{
     -String fullName
     -String email
@@ -52,68 +51,100 @@ classDiagram
   }
   class PackageHoliday{
     -String packageType
-    -ArrayList~Flight~ flightTo
-    -ArrayList~Flight~ flightReturn
+    -BigDecimal cost
+    -List~Flight~ flightTo
+    -List~Flight~ flightReturn
     -Cruise cruise
   }
 
   %% Transport classes
-
   class Flight{
     -Aircraft aircraft
     -Crew flightCrew
-    -int flightDate
+    -Date flightDate
+    -Time flightStartTime
+    -int flightDuration
+    -String origAirport
+    -String origCountry
+    -String origIATA
+    -int origGate
+    -String destAirport
+    -String destCountry
+    -String destIATA
+    -int destGate
+    +getFlightStartTime() Time
+    +getEstArrivalTime() Date
+    +getPilot() Pilot
   }
   class Cruise{
     -Ship ship
-    +getShip()
-  }
-  class Aircraft{
-    <<interface>>
-    -String aircraftRegistration
-    -String aircraftManufacturer
-    -int fuelAmount
-    +fly()
-    +land()
-    +getAircraftName()
-    +refuel(fuelAmount)
-  }
-  class Helicopter{
-    -String helicopterName
-    +getAircraftName()
-  }
-  class Plane{
-    -String planeName
-    -int callSign
+    -List~String~ portOfCalls
+    +getShipName() String
+    +getPortOfCalls() List~String~
   }
   class Ship{
     -String shipName
     -int crewNumber
-    +getShipName()
-    +getCrewNumber()
+    +getShipName() String
+    +getCrewNumber() int
+  }
+  class Aircraft{
+    <<interface>>
+    -String aircraftName
+    -String aircraftRegistration
+    -String aircraftManufacturer
+    -int fuelAmount
+    -int callSign
+    +fly()
+    +land()
+    +refuel(int fuelAmount)
+    +getAircraftName() String
+  }
+  class Helicopter{
+    -String aircraftName
+    -String aircraftRegistration
+    -String aircraftManufacturer
+    -int fuelAmount
+    -int callSign
+    +fly()
+    +land()
+    +hover()
+    +refuel(int fuelAmount)
+    +getAircraftName() String
+  }
+  class Plane{
+    -String aircraftName
+    -String aircraftRegistration
+    -String aircraftManufacturer
+    -int fuelAmount
+    -int callSign
+    +fly()
+    +land()
+    +refuel(int fuelAmount)
+    +getAircraftName() String
   }
 
   %% Hotel classes
-
   class Hotel{
     -String location
     -int stars
-
   }
 
   %% Employee classes
   class Employee{
     -int employeeNumber
     -String employeeName
-    -int employee
+    -int salary
+    -String address
+    -int phoneNum
   }
   class AircraftCrew{
-    -Array pilotCrew
-    -Array cabinCrew 
+    -List~Pilot~ pilots
+    -List~CabinCrew~ cabinCrew 
   }
   class ShipCrew{
     -ShipCaptain shipCaptain
-    -Array shipEmployees
+    -List~ShipEmployee~ shipEmployees
   }
   class CabinCrew{
     -String crewPosition
@@ -135,5 +166,6 @@ classDiagram
   class PackageRep{
     -String repType
     -String location
+    -int repPhoneNum
   }
 
