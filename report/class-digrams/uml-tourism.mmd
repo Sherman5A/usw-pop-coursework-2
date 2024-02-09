@@ -3,32 +3,70 @@ title: Tourism UML
 ---
 
 classDiagram
-  PackageHoliday ..> Flight
-  PackageHoliday ..> Cruise
+  %% Booking relations
+  Customer "1" *-- "*" Booking
+  Booking "*" *-- "1" PackageHoliday
+
+  %% Package holiday relations
+  PackageHoliday "1" o-- "0..1" Cruise
+  PackageHoliday "1" o-- "0..1" Hotel
+
+  %% Flight
+  PackageHoliday "*" o-- "0..*" Flight
+  Flight "1" o-- "1" AircraftCrew 
+  AircraftCrew "1" *-- "0..*" CabinCrew
+  AircraftCrew "1" *-- "1..*" Pilot
+  Flight o-- Aircraft 
   Plane --|> Aircraft
   Helicopter --|> Aircraft
-  Flight ..> Aircraft 
-  Flight ..> AircraftCrew 
-  Cruise ..> Ship
-  Ship ..> ShipCrew
-  AircraftCrew *-- Pilot
-  AircraftCrew *-- CabinCrew
+  Cruise o-- Ship
+
+  Ship *-- ShipCrew
   ShipCrew *-- ShipCaptain
   ShipCrew *-- ShipEmployee
+  Cruise o-- PackageRep
+
+
+  %% Hotel relations
+  Hotel o-- PackageRep
+
+  %% Employee relations
   Pilot --|> Employee
   CabinCrew --|> Employee
   ShipEmployee --|> Employee
   ShipCaptain --|> Employee
+  PackageRep --|> Employee
 
+  %% Booking classes
+
+  class Customer{
+    -String fullName
+    -String email
+    -String address
+    -Date signUpDate
+    -int packagePoints
+  }
+  class Booking{
+    -Customer customer
+    -PackageHoliday packageHoliday
+  }
   class PackageHoliday{
     -String packageType
-    -Flight flight
+    -ArrayList~Flight~ flightTo
+    -ArrayList~Flight~ flightReturn
     -Cruise cruise
   }
+
+  %% Transport classes
+
   class Flight{
     -Aircraft aircraft
     -Crew flightCrew
     -int flightDate
+  }
+  class Cruise{
+    -Ship ship
+    +getShip()
   }
   class Aircraft{
     <<interface>>
@@ -48,16 +86,22 @@ classDiagram
     -String planeName
     -int callSign
   }
-  class Cruise{
-    -Ship ship
-    +getShip()
-  }
   class Ship{
     -String shipName
     -int crewNumber
     +getShipName()
     +getCrewNumber()
   }
+
+  %% Hotel classes
+
+  class Hotel{
+    -String location
+    -int stars
+
+  }
+
+  %% Employee classes
   class Employee{
     -int employeeNumber
     -String employeeName
@@ -87,5 +131,9 @@ classDiagram
   class ShipCaptain{
     -String captainLicence
     -String experience
+  }
+  class PackageRep{
+    -String repType
+    -String location
   }
 
