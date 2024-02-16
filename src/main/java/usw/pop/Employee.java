@@ -1,6 +1,7 @@
 package usw.pop;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Employee {
@@ -10,12 +11,12 @@ public class Employee {
     private BigDecimal salary;
     private int phoneNum;
 
-    private final Date joinDate;
+    private final LocalDate joinDate;
     private boolean leftCompany = false;
-    private Date leaveDate;
+    private LocalDate leaveDate;
 
     public Employee(String employeeName, String address, BigDecimal salary, int phoneNum) {
-        joinDate = new Date();
+        joinDate = LocalDate.now();
         this.employeeName = employeeName;
         this.address = address;
         this.salary = salary;
@@ -24,7 +25,7 @@ public class Employee {
 
     public void leftCompany() {
         leftCompany = true;
-        leaveDate = new Date();
+        leaveDate = LocalDate.now();
     }
 
     // Getters
