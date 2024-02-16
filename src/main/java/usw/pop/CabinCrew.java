@@ -3,18 +3,18 @@ package usw.pop;
 import java.math.BigDecimal;
 
 public class CabinCrew extends Employee {
-    private String crewRank;
+    private CabinCrewRank crewRank;
 
-    public CabinCrew(String employeeName, String address, BigDecimal salary, int phoneNum, String crewRank) {
+    public CabinCrew(String employeeName, String address, BigDecimal salary, int phoneNum, CabinCrewRank crewRank) {
         super(employeeName, address, salary, phoneNum);
         this.crewRank = crewRank;
     }
 
-    public String getCrewRank() {
+    public CabinCrewRank getCrewRank() {
         return crewRank;
     }
 
-    public void setCrewRank(String crewRank) {
+    public void setCrewRank(CabinCrewRank crewRank) {
         this.crewRank = crewRank;
     }
 }
