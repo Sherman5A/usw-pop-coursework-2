@@ -6,24 +6,23 @@ classDiagram
   %% Booking relations
   Customer "1" *-- "*" Booking
   Booking "1" o-- "0..*" ShipRoom
-  Booking "*" *-- "1" PackageHoliday
+  Booking "*" o-- "1" PackageHoliday
   Booking "1" o-- "0..*" HotelRoom
 
   %% Package holiday relations
   PackageHoliday "*" o-- "0..1" Cruise
   PackageHoliday "*" o-- "0..1" Hotel
+  PackageHoliday "1" o-- "1" HolidayType
 
   Flight "1" o-- "1" Aircraft 
   Booking "1" o-- "0..*" FlightBooking
-  AircraftCrew "1" *-- "0..*" CabinCrew
   AircraftCrew "1" *-- "1..*" Pilot
+  AircraftCrew "1" *-- "0..*" CabinCrew
   Flight "1" o-- "1" AircraftCrew 
   FlightBooking "1" o-- "1" Flight
   FlightBooking "1" o-- "0..1" AirportParking
-  Cruise "*" o-- "*" PortOfCall
   Cruise "1" --o "1" Ship
 
-  PortOfCall "1" --o "1..*" Ship 
 
   %% Flight
   Aircraft "1" <|-- "1" Plane
@@ -31,8 +30,8 @@ classDiagram
 
   Ship "1" *-- "*" ShipRoom
   Ship "1" *-- "1" ShipCrew
-  ShipCrew "1" *-- "1" ShipCaptain
   ShipCrew "1" *-- "*" ShipEmployee
+  ShipCrew "1" *-- "1" ShipCaptain
   Cruise "1" o-- "0..*" PackageRep
 
   %% Hotel relations
@@ -42,6 +41,8 @@ classDiagram
   %% Employee relations
   Pilot --|> Employee
   CabinCrew --|> Employee
+  CabinCrew o-- CabinCrewRank
+  ShipEmployee o-- ShipEmployeeType
   ShipEmployee --|> Employee
   ShipCaptain --|> Employee
   PackageRep --|> Employee
@@ -66,12 +67,12 @@ classDiagram
     +cancelBooking() bool
   }
   class PackageHoliday{
-    -bool isCruise
-    -Cruise cruise
-    -bool isHotel
-    -bool isPreCruiseHotel
+    -String packageHolidayId
+    -HolidayType holidayType
     -Hotel hotel
-    -BigDecimal cost
+    -Cruise cruise
+    -BigDecimal baseCost
+    -bool hasPreCruiseHotel
     -bool includesFlights
     -bool isAllInclusive
   }
@@ -116,14 +117,9 @@ classDiagram
     -Ship ship
     -String originPort
     -String endPort
-    -List~PortOfCall~ portsOfCall
+    -List~String~ portsOfCall
     +getShip() Ship
     +getPortsOfCall() List~String~
-  }
-  class PortOfCall{
-    -String country
-    -int portSpaces
-    ~List~Ships~ dockedShips
   }
   class ShipRoom{
     -int roomNum
@@ -145,7 +141,7 @@ classDiagram
     +getPreviousCruises() List~Cruise~
   }
   class Aircraft{
-    <<interface>>
+    <<Interface>>
     -String aircraftName
     -String aircraftRegistration
     -String aircraftManufacturer
@@ -218,6 +214,7 @@ classDiagram
   }
   class CabinCrew{
     -String crewPosition
+    -CabinCrewRank cabinCrewRank
   }
   class Pilot{
     -String pilotLicence 
@@ -237,5 +234,24 @@ classDiagram
     -String repType
     -String location
     -int repPhoneNum
+  }
+  class CabinCrewRank{
+    <<Enumeration>>
+    FLIGHTATTENDANT,
+    SENIORCREWMEMBER,
+    PURSER,
+    CHIEFPURSER,
+  }
+  class ShipEmployeeType{
+    <<Enumeration>>
+    MAINTENANCE,
+    HOSPITALITY,
+    CLEANING,
+    BRIDGE,
+  }
+  class HolidayType{
+    <<Enumeration>>
+    CRUISE
+    HOTEL
   }
 
