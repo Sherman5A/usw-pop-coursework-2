@@ -5,10 +5,10 @@ import java.math.BigDecimal;
 public class PackageHoliday {
     private final String packageHolidayID;
     private final HolidayType holidayType;
-    private BigDecimal baseCost;
     private Hotel hotel;
-    private boolean isAllInclusive;
     private Cruise cruise;
+    private BigDecimal baseCost;
+    private boolean isAllInclusive;
     private boolean hasPreCruiseHotel;
     private boolean includesFlights;
 

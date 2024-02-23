@@ -2,16 +2,14 @@ package usw.pop;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Employee {
+    private final LocalDate joinDate;
     private int employeeID;
     private String employeeName;
     private String address;
     private BigDecimal salary;
     private int phoneNum;
-
-    private final LocalDate joinDate;
     private boolean leftCompany = false;
     private LocalDate leaveDate;
 

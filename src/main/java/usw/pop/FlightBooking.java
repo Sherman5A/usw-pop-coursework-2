@@ -10,7 +10,7 @@ public class FlightBooking {
     private final int seatNumber;
     private final int baggageLimit;
     private boolean hasCheckedIn;
-    private LocalDateTime checkinTime;
+    private LocalDateTime checkInTime;
     private boolean hasMissedFlight;
 
     public FlightBooking(Flight flight, AirportParking airportParking, String seatingClass, int seatNumber,
@@ -28,7 +28,7 @@ public class FlightBooking {
             return false;
         }
         hasCheckedIn = true;
-        checkinTime = LocalDateTime.now();
+        checkInTime = LocalDateTime.now();
         return true;
     }
 
@@ -60,8 +60,8 @@ public class FlightBooking {
         return hasCheckedIn;
     }
 
-    public LocalDateTime getCheckinTime() {
-        return checkinTime;
+    public LocalDateTime getCheckInTime() {
+        return checkInTime;
     }
 
     public boolean isHasMissedFlight() {

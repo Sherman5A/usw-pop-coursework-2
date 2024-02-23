@@ -11,8 +11,8 @@ public class Plane implements Aircraft {
     private int fuelAmount;
     private final int fuelConsumption;
     private final String registeredAirport;
-    private BigDecimal currentLat;
-    private BigDecimal currentLong;
+    private BigDecimal currentLatitude;
+    private BigDecimal currentLongitude;
     private String currentAirport;
 
 
@@ -46,8 +46,8 @@ public class Plane implements Aircraft {
 
     @Override
     public void updateLocation(BigDecimal latitude, BigDecimal longitude) {
-        this.currentLat = latitude;
-        this.currentLong = longitude;
+        this.currentLatitude = latitude;
+        this.currentLongitude = longitude;
     }
 
     // Getters
@@ -63,12 +63,12 @@ public class Plane implements Aircraft {
 
     @Override
     public BigDecimal getAircraftLat() {
-        return currentLat;
+        return currentLatitude;
     }
 
     @Override
     public BigDecimal getAircraftLong() {
-        return currentLong;
+        return currentLongitude;
     }
 
     @Override

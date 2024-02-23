@@ -1,7 +1,7 @@
 package usw.pop;
 
 public enum CabinCrewRank {
-    FLIGHTATTENDENT,
+    FLIGHTATTENDANT,
     SENIORCREWMEMBER,
     PURSER,
     CHIEFPURSER,

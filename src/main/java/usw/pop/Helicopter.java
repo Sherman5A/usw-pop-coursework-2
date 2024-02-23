@@ -8,8 +8,8 @@ public class Helicopter implements Aircraft {
     private String aircraftManufacturer;
     private String aircraftCallSign;
     private String currentAirport;
-    private BigDecimal currentLat;
-    private BigDecimal currentLong;
+    private BigDecimal currentLatitude;
+    private BigDecimal currentLongitude;
     private int fuelAmount;
     private int distanceFuelConsumption;
     private int timeFuelConsumption;
@@ -47,8 +47,8 @@ public class Helicopter implements Aircraft {
 
     @Override
     public void updateLocation(BigDecimal latitude, BigDecimal longitude) {
-        this.currentLat = latitude;
-        this.currentLong = longitude;
+        this.currentLatitude = latitude;
+        this.currentLongitude = longitude;
     }
 
     // Getters
@@ -64,12 +64,12 @@ public class Helicopter implements Aircraft {
 
     @Override
     public BigDecimal getAircraftLat() {
-        return currentLat;
+        return currentLatitude;
     }
 
     @Override
     public BigDecimal getAircraftLong() {
-        return currentLong;
+        return currentLongitude;
     }
 
     @Override

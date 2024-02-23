@@ -35,7 +35,8 @@ public class Booking {
         this(customer, packageHoliday, usePoints, BigDecimal.ZERO);
     }
 
-    public Booking(Customer customer, PackageHoliday packageHoliday, boolean usePoints, BigDecimal initialPayment, List<Flight> bookedFlights) {
+    public Booking(Customer customer, PackageHoliday packageHoliday, boolean usePoints, BigDecimal initialPayment,
+                   List<Flight> bookedFlights) {
         this(customer, packageHoliday, usePoints, initialPayment);
         this.bookedFlights = bookedFlights;
     }
