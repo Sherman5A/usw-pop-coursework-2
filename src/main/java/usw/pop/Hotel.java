@@ -2,6 +2,10 @@ package usw.pop;
 
 import java.util.List;
 
+
+/**
+ * Class that represents a hotel
+ */
 public class Hotel {
     private String hotelName;
     private String hotelAddress;

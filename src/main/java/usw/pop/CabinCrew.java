@@ -2,6 +2,11 @@ package usw.pop;
 
 import java.math.BigDecimal;
 
+
+/**
+ * {@inheritDoc}
+ * Inherits from class {@code Employee }
+ */
 public class CabinCrew extends Employee {
     private CabinCrewRank crewRank;
 
