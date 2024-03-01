@@ -2,9 +2,12 @@ package usw.pop;
 
 import java.math.BigDecimal;
 
+/**
+ * Pre-made Holiday that a {@code Customer} can buy
+ */
 public class PackageHoliday {
-    private final String packageHolidayID;
-    private final HolidayType holidayType;
+    private String packageHolidayID;
+    private HolidayType holidayType;
     private Hotel hotel;
     private Cruise cruise;
     private BigDecimal baseCost;
@@ -12,19 +15,42 @@ public class PackageHoliday {
     private boolean hasPreCruiseHotel;
     private boolean includesFlights;
 
-    public PackageHoliday(HolidayType holidayType, Hotel hotel, Cruise cruise, boolean hasPreCruiseHotel,
-                          boolean includesFlights, boolean isAllInclusive, BigDecimal baseCost) {
+
+    /**
+     * Creates a single package holiday that has hotels as accommodation
+     *
+     * @param hotel           The hotel that the package holiday includes
+     * @param includesFlights Whether the package holiday includes the flight bookings
+     * @param isAllInclusive  Whether the food is included within the holiday price
+     * @param baseCost        The base cost of the holiday without any discounts
+     */
+    public PackageHoliday(Hotel hotel, BigDecimal baseCost, boolean isAllInclusive, boolean includesFlights) {
         // Would be set automatically in a complete system
-        packageHolidayID = "1";
-        this.holidayType = holidayType;
-        this.baseCost = baseCost;
         this.hotel = hotel;
-        this.cruise = cruise;
-        this.hasPreCruiseHotel = hasPreCruiseHotel;
-        this.includesFlights = includesFlights;
+        this.baseCost = baseCost;
         this.isAllInclusive = isAllInclusive;
+        this.includesFlights = includesFlights;
     }
 
+
+    /**
+     * Creates a single package holiday that has a cruise as accommodation
+     *
+     * @param cruise            The cruise that the package holiday includes
+     * @param baseCost          The base cost of the holiday without any discounts
+     * @param isAllInclusive    Whether the cruise food is all-inclusive
+     * @param hasPreCruiseHotel If the package includes a hotel to sleep in prior to boarding the ship
+     * @param includesFlights   If the package includes any flights to the origin / destination port location
+     */
+    public PackageHoliday(Cruise cruise, BigDecimal baseCost, boolean isAllInclusive, boolean hasPreCruiseHotel,
+                          boolean includesFlights) {
+        // Would be set automatically in a complete system
+        this.cruise = cruise;
+        this.baseCost = baseCost;
+        this.isAllInclusive = isAllInclusive;
+        this.hasPreCruiseHotel = hasPreCruiseHotel;
+        this.includesFlights = includesFlights;
+    }
 
     public boolean getIncludesFlights() {
         return includesFlights;

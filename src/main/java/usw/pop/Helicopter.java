@@ -3,25 +3,37 @@ package usw.pop;
 import java.math.BigDecimal;
 
 public class Helicopter implements Aircraft {
-    private String aircraftName;
-    private String aircraftRegistration;
-    private String aircraftManufacturer;
-    private String aircraftCallSign;
+    private final String aircraftName;
+    private final String aircraftRegistration;
+    private final String aircraftManufacturer;
+    private final String aircraftCallSign;
+    private final int distanceFuelConsumption;
+    private final int timeFuelConsumption;
     private String currentAirport;
     private BigDecimal currentLatitude;
     private BigDecimal currentLongitude;
     private int fuelAmount;
-    private int distanceFuelConsumption;
-    private int timeFuelConsumption;
 
+
+    /**
+     * Object representing a helicopter with its registration information
+     *
+     * @param aircraftName            Name of helicopter
+     * @param aircraftRegistration    Helicopter registration number
+     * @param aircraftManufacturer    Creator of helicopter
+     * @param aircraftCallSign        Call sign of helicopter
+     * @param currentAirport          Airport the helicopter is currently at
+     * @param distanceFuelConsumption How much fuel the helicopter uses per kilometer
+     * @param timeFuelConsumption     How much fuel the helicopter uses over time
+     */
     public Helicopter(String aircraftName, String aircraftRegistration, String aircraftManufacturer,
-                      String aircraftCallSign, String currentLocation, int distanceFuelConsumption,
+                      String aircraftCallSign, String currentAirport, int distanceFuelConsumption,
                       int timeFuelConsumption) {
         this.aircraftName = aircraftName;
         this.aircraftRegistration = aircraftRegistration;
         this.aircraftManufacturer = aircraftManufacturer;
         this.aircraftCallSign = aircraftCallSign;
-        this.currentAirport = currentLocation;
+        this.currentAirport = currentAirport;
         this.distanceFuelConsumption = distanceFuelConsumption;
         this.timeFuelConsumption = timeFuelConsumption;
     }
@@ -35,16 +47,35 @@ public class Helicopter implements Aircraft {
         fuelAmount -= duration * timeFuelConsumption;
     }
 
+
+    /**
+     * Land at an airport
+     *
+     * @param landingLocation Airport landing at
+     */
     @Override
     public void land(String landingLocation) {
         currentAirport = landingLocation;
     }
 
+
+    /**
+     * Refuel the helicopter
+     *
+     * @param addedFuel Additional fuel
+     */
     @Override
     public void refuel(int addedFuel) {
         fuelAmount += addedFuel;
     }
 
+
+    /**
+     * Update the location of the Helicopter
+     *
+     * @param latitude  New latitude of Helicopter
+     * @param longitude New longitude of Helicopter
+     */
     @Override
     public void updateLocation(BigDecimal latitude, BigDecimal longitude) {
         this.currentLatitude = latitude;

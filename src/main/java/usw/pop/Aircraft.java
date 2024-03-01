@@ -3,7 +3,7 @@ package usw.pop;
 import java.math.BigDecimal;
 
 /**
- *
+ * Interface that representing an aircraft
  */
 public interface Aircraft {
     void fly(int distance);

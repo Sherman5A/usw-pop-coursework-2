@@ -14,4 +14,20 @@ public class ShipCrew {
     public void addShipEmployee(ShipEmployee shipEmployee) {
         shipEmployees.add(shipEmployee);
     }
+
+    public ShipCaptain getShipCaptain() {
+        return shipCaptain;
+    }
+
+    public void setShipCaptain(ShipCaptain shipCaptain) {
+        this.shipCaptain = shipCaptain;
+    }
+
+    public List<ShipEmployee> getShipEmployees() {
+        return shipEmployees;
+    }
+
+    public void setShipEmployees(List<ShipEmployee> shipEmployees) {
+        this.shipEmployees = shipEmployees;
+    }
 }

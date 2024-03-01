@@ -4,11 +4,16 @@ import java.util.List;
 
 public class AircraftCrew {
     List<Pilot> pilots;
-    List<CabinCrew> cabinCrews;
+    List<CabinCrew> cabinCrew;
 
-    public AircraftCrew(List<Pilot> pilots, List<CabinCrew> cabinCrews) {
+    /**
+     * Creates an AirCraft crew object
+     * @param pilots Aircraft can have multiple pilots
+     * @param cabinCrew Cabin crew of an aircraft
+     */
+    public AircraftCrew(List<Pilot> pilots, List<CabinCrew> cabinCrew) {
         this.pilots = pilots;
-        this.cabinCrews = cabinCrews;
+        this.cabinCrew = cabinCrew;
     }
 
     public void addPilot(Pilot pilot) {
@@ -16,6 +21,6 @@ public class AircraftCrew {
     }
 
     public void addCrew(CabinCrew cabinCrew) {
-        cabinCrews.add(cabinCrew);
+        this.cabinCrew.add(cabinCrew);
     }
 }

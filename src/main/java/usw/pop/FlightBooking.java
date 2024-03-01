@@ -2,17 +2,38 @@ package usw.pop;
 
 import java.time.LocalDateTime;
 
+
+/**
+ * Represents a booking for a flight.
+ * Booking between {@code Flight} and {@code customer}
+ */
 public class FlightBooking {
-    private String bookingID;
     private final Flight flight;
-    private final AirportParking airportParking;
     private final String seatingClass;
     private final int seatNumber;
     private final int baggageLimit;
+    private AirportParking airportParking;
+    private String bookingID;
     private boolean hasCheckedIn;
     private LocalDateTime checkInTime;
     private boolean hasMissedFlight;
 
+    public FlightBooking(Flight flight, String seatingClass, int seatNumber, int baggageLimit) {
+        this.flight = flight;
+        this.seatingClass = seatingClass;
+        this.seatNumber = seatNumber;
+        this.baggageLimit = baggageLimit;
+    }
+
+    /**
+     * Creates a {@code FlightBooking} object with the optional {@code AirportParking}
+     *
+     * @param flight
+     * @param airportParking
+     * @param seatingClass
+     * @param seatNumber
+     * @param baggageLimit
+     */
     public FlightBooking(Flight flight, AirportParking airportParking, String seatingClass, int seatNumber,
                          int baggageLimit) {
         this.flight = flight;
@@ -22,6 +43,13 @@ public class FlightBooking {
         this.baggageLimit = baggageLimit;
     }
 
+
+    /**
+     * Check in the booking, checks that the flight has not started before the
+     * booking
+     *
+     * @return whether the checking in was successful
+     */
     public boolean checkIn() {
         if (LocalDateTime.now().isAfter(flight.getFlightStart())) {
             hasMissedFlight = true;

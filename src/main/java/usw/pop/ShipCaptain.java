@@ -8,6 +8,11 @@ public class ShipCaptain extends Employee {
     private Ship currentShip;
     private List<Ship> shipHistory;
 
+    /**
+     * Creates a captain object
+     *
+     * @param currentShip The ship the captain is currently in command of
+     */
     public ShipCaptain(String employeeName, String address, BigDecimal salary, int phoneNum, Ship currentShip) {
         super(employeeName, address, salary, phoneNum);
         this.currentShip = currentShip;
@@ -27,5 +32,17 @@ public class ShipCaptain extends Employee {
 
     public void incrementYearsCaptain() {
         this.yearsCaptain++;
+    }
+
+    public Ship getCurrentShip() {
+        return currentShip;
+    }
+
+    public void setCurrentShip(Ship currentShip) {
+        this.currentShip = currentShip;
+    }
+
+    public void addShipHistory(Ship previousShip) {
+        shipHistory.add(previousShip);
     }
 }

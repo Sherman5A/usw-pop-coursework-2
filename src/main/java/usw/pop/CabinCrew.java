@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 
 /**
+ * Represents a member of the {@code CabinCrew} of an aircraft.
  * {@inheritDoc}
  * Inherits from class {@code Employee }
  */

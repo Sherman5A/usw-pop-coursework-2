@@ -12,6 +12,14 @@ public class Cruise {
     private List<String> portsOfCall;
 
 
+    /**
+     * Creates a Cruise
+     *
+     * @param ship        Ship cruise is on
+     * @param origPort    Port cruise is departing from
+     * @param destPort    Port that the cruise ends at
+     * @param portsOfCall Ports that the cruise stops at
+     */
     public Cruise(Ship ship, String origPort, String destPort, List<String> portsOfCall) {
         this.ship = ship;
         this.origPort = origPort;
@@ -26,7 +34,6 @@ public class Cruise {
     public void setShip(Ship ship) {
         this.ship = ship;
     }
-
 
     public String getOrigPort() {
         return origPort;

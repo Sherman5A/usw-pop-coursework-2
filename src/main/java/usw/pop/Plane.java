@@ -8,24 +8,32 @@ public class Plane implements Aircraft {
     private final String aircraftManufactureer;
     private final String aircraftRegistration;
     private final String aircraftCallsign;
-    private int fuelAmount;
     private final int fuelConsumption;
-    private final String registeredAirport;
+    private int fuelAmount;
     private BigDecimal currentLatitude;
     private BigDecimal currentLongitude;
     private String currentAirport;
 
 
+    /**
+     * Object that represents a plane
+     *
+     * @param aircraftName         Name of plane
+     * @param aircraftManufacturer Creator of the plane
+     * @param aircraftRegistration Plane registration number
+     * @param aircraftCallSign     Plane's call sign
+     * @param fuelAmount           Amount of fuel in plane at initialisation
+     * @param fuelConsumption      Fuel consumption of plane per km
+     * @param currentAirport       Airport the plane is currently at
+     */
     public Plane(String aircraftName, String aircraftManufacturer, String aircraftRegistration,
-                 String aircraftCallsign, int fuelAmount, int fuelConsumption, String registeredAirport,
-                 String currentAirport) {
+                 String aircraftCallSign, int fuelAmount, int fuelConsumption, String currentAirport) {
         this.aircraftName = aircraftName;
         this.aircraftManufactureer = aircraftManufacturer;
         this.aircraftRegistration = aircraftRegistration;
-        this.aircraftCallsign = aircraftCallsign;
+        this.aircraftCallsign = aircraftCallSign;
         this.fuelAmount = fuelAmount;
         this.fuelConsumption = fuelConsumption;
-        this.registeredAirport = registeredAirport;
         this.currentAirport = currentAirport;
     }
 

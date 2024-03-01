@@ -7,6 +7,9 @@ public class ShipEmployee extends Employee {
     private int bunkNumber;
 
 
+    /**
+     * @param crewType The type of crew member
+     */
     public ShipEmployee(String employeeName, String address, BigDecimal salary, int phoneNum, ShipCrewType crewType) {
         super(employeeName, address, salary, phoneNum);
         this.crewType = crewType;
