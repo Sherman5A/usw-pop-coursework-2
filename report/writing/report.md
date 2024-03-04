@@ -5,8 +5,8 @@ date: "01/03/2024"
 toc-own-page: true
 # titlepage: true
 # titlepage-background: "title-background.pdf"
-# bibliography: "references.bib"
-# csl: "university-of-south-wales-harvard.csl"
+bibliography: "references.bib"
+csl: "university-of-south-wales-harvard.csl"
 ---
 
 # Program UML
@@ -34,10 +34,8 @@ Furthermore,
 
 Within this project, the Java unit testing framework JUnit will be used.
 
-
 Building on top of unit testing, continuous integration ensures that all developers within the
-organisation 
-
+organisation:
 
 - feature flags
 - ui testing
@@ -47,4 +45,71 @@ organisation
 - integration testing - testing api code inteactions, database connection 
 - black box testing - less interaction - 
 - martin folwer testing articles
+
+
+Should the service require any external API's. These could be tracking APIs offered by various airports,
+or apis offered by the FIA (British equiavalent) to ensure that planes are correctly en route.
+Then the implementation of contact testing can ensure that updates to API returns and intefaces are
+quickly recognised and corrected. To ensure that the service does not suffer for too long.
+
+End to end user testing. 
+
+
+`JUnit5` test for checking in process in `FlightBooking.java`,
+
+```java
+public boolean checkIn() {
+    if (LocalDateTime.now().isAfter(flight.getFlightStart())) {
+        hasMissedFlight = true;
+        return false;
+    }
+    hasCheckedIn = true;
+    checkInTime = LocalDateTime.now();
+    return true;
+}
+```
+
+The unit test created to test the `checkIn` method in the `FlightBooking` class.
+
+```java
+package usw.holidays;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class FlightBooking {
+    private Flight testFlight;
+    private FlightBooking testFlightBooking;
+
+    @Test
+    @DisplayName("Check-in process with an on-time flight booking")
+    public void checkIn() {
+        LocalDateTime earlyDateTime = new LocalDateTime();
+        testFlight = mock(Flight.class);
+        when(testFlight.getFlightStart()).thenReturn(earlyDateTime);
+
+        testFlightBooking = new FlightBooking(
+            testFlight, "economy", 12, 200
+        );
+
+        assertTrue(testFlightBooking.checkIn());
+    }
+
+    @Test
+    @DisplayName("Check-in process with a late flight booking")
+    public void checkInLate() {
+        LocalDateTime lateDateTime = new LocalDateTime();
+        testFlight = mock(Flight.class);
+
+        when(testFlight.getFlightStart()).thenReturn(lateDateTime);
+
+        testFlightBooking = new FlightBooking(
+            testFlight, "economy", 12, 200
+        );
+
+        assertFalse(testFlightBooking.checkIn());
+    }
+}
+```
 
