@@ -72,42 +72,60 @@ public boolean checkIn() {
 The unit test created to test the `checkIn` method in the `FlightBooking` class.
 
 ```java
-package usw.holidays;
+package usw.pop;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.mockito.Mockito;
 
-class FlightBooking {
+import java.time.LocalDateTime;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+class FlightBookingTest {
     private Flight testFlight;
     private FlightBooking testFlightBooking;
+
 
     @Test
     @DisplayName("Check-in process with an on-time flight booking")
     public void checkIn() {
-        LocalDateTime earlyDateTime = new LocalDateTime();
-        testFlight = mock(Flight.class);
-        when(testFlight.getFlightStart()).thenReturn(earlyDateTime);
+        LocalDateTime earlyDateTime = LocalDateTime.now().plusYears(1);
+        /*
+         Create a mocked class of testFlight testFlight could use 
+         an API for plane tracking, so creating a stub ensures that
+         the test is independent
+        */
+        testFlight = Mockito.mock(Flight.class);
+        // Set what to return when getFlightStart() is called
+        Mockito.when(testFlight.getFlightStart()).thenReturn(
+            earlyDateTime
+        );
 
+        // Call the check-in process
         testFlightBooking = new FlightBooking(
             testFlight, "economy", 12, 200
         );
-
         assertTrue(testFlightBooking.checkIn());
     }
 
     @Test
     @DisplayName("Check-in process with a late flight booking")
     public void checkInLate() {
-        LocalDateTime lateDateTime = new LocalDateTime();
-        testFlight = mock(Flight.class);
+        LocalDateTime lateDateTime = LocalDateTime.now().minusYears(1);
 
-        when(testFlight.getFlightStart()).thenReturn(lateDateTime);
+        // Create another mocked class
+        testFlight = Mockito.mock(Flight.class);
+        // Set return time to the future to fail check-in
+        Mockito.when(testFlight.getFlightStart()).thenReturn(
+            lateDateTime
+        );
 
+        // Call the check-in process
         testFlightBooking = new FlightBooking(
             testFlight, "economy", 12, 200
         );
-
         assertFalse(testFlightBooking.checkIn());
     }
 }
