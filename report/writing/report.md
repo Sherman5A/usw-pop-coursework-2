@@ -1,5 +1,5 @@
 ---
-title: "IS1S481 Coursework 1"
+title: "IS1S481 Coursework 2"
 author: [Jake Real - 23056792]
 date: "01/03/2024"
 toc-own-page: true
@@ -7,11 +7,10 @@ toc-own-page: true
 # titlepage-background: "title-background.pdf"
 bibliography: "references.bib"
 csl: "university-of-south-wales-harvard.csl"
----
 
 # Program UML
 
-![UML Representation of Program](uml-build-output.png){height=85%}
+![UML Representation of Program](images/uml-build-output.png){height=85%}
 
 First areas of testing.
 
@@ -46,7 +45,6 @@ organisation:
 - black box testing - less interaction - 
 - martin folwer testing articles
 
-
 Should the service require any external API's. These could be tracking APIs offered by various airports,
 or apis offered by the FIA (British equiavalent) to ensure that planes are correctly en route.
 Then the implementation of contact testing can ensure that updates to API returns and intefaces are
@@ -72,8 +70,6 @@ public boolean checkIn() {
 The unit test created to test the `checkIn` method in the `FlightBooking` class.
 
 ```java
-package usw.pop;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -134,9 +130,6 @@ class FlightBookingTest {
 Narrow integration test with a PostgreSQL database.
 
 ```java
-package usw.pop;
-
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
