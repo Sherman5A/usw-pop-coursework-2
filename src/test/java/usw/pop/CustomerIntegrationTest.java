@@ -17,7 +17,7 @@ public class CustomerIntegrationTest {
      Create a temporary database container to test database's interactions with
      the program
     */
-    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:126-alpine");
+    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16-alpine");
 
     Customer customer;
     // CustomerDatabase customerDatabase;
