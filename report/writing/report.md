@@ -9,7 +9,7 @@ bibliography: "references.bib"
 csl: "university-of-south-wales-harvard.csl"
 notcite: |
   @testcontainers-install, @testcontainers-java, @testcontainers-docker-setup,
-  @stubbing-mocking-mockitio
+  @stubbing-mocking-mockitio @large-scale-agile
 ...
 
 # Program UML
@@ -20,51 +20,66 @@ notcite: |
 
 ## Introduction
 
+## Automated Testing
+
+The project will make extensive use of automated testing throughout development and deployment.
+Automated testing allows a developer to monitor if any defects are present in their codebase without
+manually testing and searching for errors, saving time. A report by the National Institute of
+Standards & Technology [-@nist-report] reports software bugs are estimated to have cost the United
+States of America $59.5 billion annually. They estimated that approximately $22.5 billion, a third of
+the cost, could be saved through improvements in testing infrastructure. The impact of automated
+testing is not only observed on the macro scale, but also on the team scale. Salesforce, customer
+relationship management software provider, reported the following reductions after implementing
+automated testing: staff involved in application deployment reduced by 65%, two to 3 hours of final
+testing became 10 minutes of automated tests, 3 to 4 hours of post-release testing was handled by 45
+minutes automated testing, the patch release team reduced by 80%, and savings of 300 hours per major
+release [@succeeding-with-agile]. On the other hand, automated testing has the following
+disadvantages: it has higher initial costs than manual testing, knowledge of the test tools is
+required, the tests require maintenance, and implementing testing requires either a developer or
+testing specialist [@automated-testing-article]. Despite these disadvantages, when automated testing
+is implemented early into a project's development its advantages far outweigh the detriments.
+Catching errors early without manual testing reduces the cost of finding and then solving them, in
+addition to improving the structure of the project, as seen in processes like test-driven development
+that will be discussed later. Overall, automated testing is an extremely valuable area with a
+significant role in the project's development process.
+
+- Ensure that caught as they can become costly with time
+
+The time invested by creating these automated tests can be recouped by the time saved in manual
+testing stages.
+
 ## Testing pyramid
 
 ![Testing Pyramid [@google-test-blog]](images/testing-pyramid.png){height=35%}
 
-The test structure of the program will follow the testing pyramid strategy created by Mike
+The automated test structure of the program will follow the testing pyramid strategy created by Mike
 Cohn [-@succeeding-with-agile]. His initial interpretation was a pyramid with 3 levels. The bottom
 being unit testing, then service testing, and finally, at the top, user interface testing. Various
-interpretations have stemmed from Mike Cohn's original design, renaming the pyramid's stages
-or by adding additional layers. However, it is agreed that the lowest layers receive the highest
-time and processing investment with the largest number of tests. As you ascend the pyramid's layers,
-the tests become more infrequent with lower investment. As seen in figure 2, unit tests
-would have the highest amount of tests; whereas, end-to-end (E2E) and user interface tests number far
-fewer, running less frequently. This is because end-to-end tests, whilst comprehensive, have
-several disadvantages. Cohn [-@succeeding-with-agile] lists the drawbacks as, fragility, time cost, and
-processing cost. E2E tests are brittle; small changes in the program's user interface could
-break several tests. Repeated fixes create discontent and a reluctance to fix the broken test, leaving
-it useless. Moreover, effective, non-brittle E2E testing increases development time costs, making a
-large E2E test suite impractical. Finally, E2E testing costs more computationally than unit and
-integration testing, therefore tests can not run as frequently, decreasing daily coverage compared to
-unit and integration testing. On the other hand, unit testing, despite being quick, only deals with
-small independent slices of the program, missing tests concerning external services and how they
-integrate with each other. Therefore, service, or integration testing, acts middleman to avoid testing
-external dependencies such as databases, APIs and user input through the user interface.
+interpretations have stemmed from Mike Cohn's original design, renaming the pyramid's stages or by
+adding additional layers. However, it is agreed that the lowest layers receive the highest time and
+processing investment with the largest number of tests. As you ascend the pyramid's layers, the tests
+become more infrequent with lower investment. As seen in figure 2, unit tests would have the highest
+amount of tests; whereas, end-to-end (E2E) and user interface tests number far fewer, running less
+frequently. This is because end-to-end tests, whilst comprehensive, have several disadvantages. Cohn
+[-@succeeding-with-agile] lists the drawbacks as, fragility, time cost, and processing cost. E2E
+tests are brittle; small changes in the program's user interface could break several tests. Repeated
+fixes create discontent and a reluctance to fix the broken test, leaving it useless. Moreover,
+effective, non-brittle E2E testing increases development time costs, making a large E2E test suite
+impractical. Finally, E2E testing costs more computationally than unit and integration testing,
+therefore tests can not run as frequently, decreasing daily coverage compared to unit and integration
+testing. On the other hand, unit testing, despite being quick, only deals with small independent
+slices of the program, missing tests concerning external services and how they integrate with each
+other. Therefore, service, or integration testing, acts middleman to avoid testing external
+dependencies such as databases, APIs and user input through the user interface.
+
+The explanation on the testing pyramid provided short insights into the stages. The following report
+will delve into the details and implementation of these layers.
 
 ## Unit tests
 
-## Integration tests
-
-### Narrow
-
-### Wide
-
-## End to end testing
-
-Input validation etc.
-
-## Implementation with continuous integration services
-
-## Conclusion
-
-First areas of testing.
-
-The first stages of testing will occur during the development and programming process. The project
-will make extensive use of unit tests; these tests involve writing isolated automated tests
-that target small sections of the program, known as units.
+The first stages of testing occur during the development and programming process. The project will
+make extensive use of unit tests; these tests involve writing isolated automated tests that target
+small sections of the program, known as units.
 
 Creation of the unit test involves developing a criteria, referred to the test case.
 
@@ -80,6 +95,22 @@ Furthermore,
 
 Within this project, the Java unit testing framework JUnit will be used.
 
+## Integration tests
+
+### Narrow
+
+### Wide
+
+## End to end testing
+
+Input validation etc.
+
+## Test driven development
+
+## Implementation with continuous integration services
+
+## Conclusion
+
 Building on top of unit testing, continuous integration ensures that all developers within the
 organisation:
 
@@ -92,10 +123,11 @@ organisation:
 - black box testing - less interaction -
 - martin folwer testing articles
 
-Should the service require any external APIs. These could be tracking APIs offered by various airports,
-or apis offered by the FIA (British equivalent) to ensure that planes are correctly en route.
-Then the implementation of contact testing can ensure that updates to API returns and interfaces are
-quickly recognised and corrected. To ensure that the service does not suffer for too long.
+Should the service require any external APIs. These could be tracking APIs offered by various
+airports, or apis offered by the FIA (British equivalent) to ensure that planes are correctly en
+route. Then the implementation of contact testing can ensure that updates to API returns and
+interfaces are quickly recognised and corrected. To ensure that the service does not suffer for too
+long.
 
 End to end user testing.
 
@@ -267,6 +299,8 @@ public class CustomerIntegrationTest {
 
 }
 ```
+
+# Manual Testing
 
 # References
 
