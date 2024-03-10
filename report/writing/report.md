@@ -8,8 +8,7 @@ toc-own-page: true
 bibliography: "references.bib"
 csl: "university-of-south-wales-harvard.csl"
 notcite: |
-  @testcontainers-install, @testcontainers-java, @testcontainers-docker-setup,
-  @stubbing-mocking-mockitio @large-scale-agile
+    @testcontainers-java, @stubbing-mocking-mockitio @large-scale-agile
 ...
 
 # Program UML
@@ -95,54 +94,18 @@ Furthermore,
 
 Within this project, the Java unit testing framework JUnit will be used.
 
-## Integration tests
-
-### Narrow
-
-### Wide
-
-## End to end testing
-
-Input validation etc.
-
-## Test driven development
-
-## Implementation with continuous integration services
-
-## Conclusion
-
-Building on top of unit testing, continuous integration ensures that all developers within the
-organisation:
-
-- feature flags
-- ui testing
-- test lab
-- testing pyramid
-- e2e testing - operational - max interaction - require running services - automated ui testing server
-- integration testing - testing api code interactions, database connection
-- black box testing - less interaction -
-- martin folwer testing articles
-
-Should the service require any external APIs. These could be tracking APIs offered by various
-airports, or apis offered by the FIA (British equivalent) to ensure that planes are correctly en
-route. Then the implementation of contact testing can ensure that updates to API returns and
-interfaces are quickly recognised and corrected. To ensure that the service does not suffer for too
-long.
-
-End to end user testing.
-
 `JUnit5` test for checking in process in `FlightBooking.java`,
 
 ```java
-public boolean checkIn(){
-        if(LocalDateTime.now().isAfter(flight.getFlightStart())){
+public boolean checkIn() {
+    if(LocalDateTime.now().isAfter(flight.getFlightStart())){
         hasMissedFlight=true;
         return false;
-        }
-        hasCheckedIn=true;
-        checkInTime=LocalDateTime.now();
-        return true;
-        }
+    }
+    hasCheckedIn=true;
+    checkInTime=LocalDateTime.now();
+    return true;
+}
 ```
 
 The unit test created to test the `checkIn` method in the `FlightBooking` class.
@@ -167,7 +130,7 @@ class FlightBookingTest {
     public void checkIn() {
         LocalDateTime earlyDateTime = LocalDateTime.now().plusYears(1);
         /*
-         Create a mocked class of testFlight testFlight could use 
+         Create a mocked class of testFlight testFlight could use
          an API for plane tracking, so creating a stub ensures that
          the test is independent
         */
@@ -205,7 +168,31 @@ class FlightBookingTest {
 }
 ```
 
-Narrow integration test with a PostgreSQL database.
+## Integration tests
+
+Integration, or service layer, testing involves verifying that independent components of the program
+successfully interact and connect together as expected [@test-automation-theory-practice]. These
+independent components could be databases, files, APIs, user inputs, and so on. It is one level above
+the isolation of unit tests, but below end-to-end testing. Integration testing is split into 2 areas,
+narrow and broad integration testing. The former tests: exercise the code that interacts with the
+separate component, use test doubles - not production or development services in the test, and number
+in higher numbers than the latter [@martin-fowler-integration-test]. Whereas, broad testing requires
+live versions of every service, testing all code paths; not just those that interact with separate
+services. Therefore, narrow integration tests will run quicker and provide earlier feedback at the
+expense of the test's depth and code coverage. Thus, it is important to use both tests; a sizeable
+amount of narrow test regularly running will spot most integration errors. Then, the broad tests can
+be run during less frequently, such as during deployment pipelines, to spot any errors that passed
+through the narrow tests.
+
+Narrow integration tests can be implemented through many libraries: `JUnit`, `Spring`,
+`testcontainers`, or mocking. Valley Cruises' service would require an SQL database for customer
+information. This external service would require integration testing with the Customer class and code
+that reads the customer information from the database. Using the library `testcontainers`, we create
+a temporary isolated SQL database through docker, we then connect to it, interact with the database
+through the customer's SQL classes, and check if those interactions propagate to the database. 
+If the tests succeed, the database and program are successfully integrated.
+
+Integration test using `testcontainer` and the `Customer` class [@testcontainers-java],
 
 ```java
 import org.junit.jupiter.api.Test;
@@ -222,7 +209,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 public class CustomerIntegrationTest {
 
     /*
-     Create a temporary database container to test a database's 
+     Create a temporary database container to test a database's
      integration with the program
     */
     static PostgreSQLContainer<?> postgres =
@@ -300,6 +287,40 @@ public class CustomerIntegrationTest {
 }
 ```
 
+In a broad integration test, the process of creating a customer and booking the customer on a holiday
+and that integration between these two concepts could be tested. Alternatively, APIs that are external
+to Valley Cruise's network such as potential flight tracking APIs would be included in broad tests
+due to a lack of control over them.
+
+## End to end testing
+
+Input validation etc.
+
+## Test driven development
+
+## Implementation with continuous integration services
+
+## Conclusion
+
+Building on top of unit testing, continuous integration ensures that all developers within the
+organisation:
+
+- feature flags
+- ui testing
+- test lab
+- testing pyramid
+- e2e testing - operational - max interaction - require running services - automated ui testing server
+- integration testing - testing api code interactions, database connection
+- black box testing - less interaction -
+- martin fowler testing articles
+
+Should the service require any external APIs. These could be tracking APIs offered by various
+airports, or apis offered by the FIA (British equivalent) to ensure that planes are correctly en
+route. Then the implementation of contact testing can ensure that updates to API returns and
+interfaces are quickly recognised and corrected. To ensure that the service does not suffer for too
+long.
+
+End to end user testing.
 # Manual Testing
 
 # References
