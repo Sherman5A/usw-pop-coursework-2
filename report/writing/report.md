@@ -1,14 +1,14 @@
 ---
 title: "IS1S481 Coursework 2"
 author: [ Jake Real - 23056792 ]
-date: "01/03/2024"
+date: "10/03/2024"
 toc-own-page: true
-# titlepage: true
-# titlepage-background: "title-background.pdf"
+titlepage: true
+titlepage-background: "images/title-background.pdf"
 bibliography: "references.bib"
 csl: "university-of-south-wales-harvard.csl"
 notcite: |
-    @testcontainers-java, @stubbing-mocking-mockitio @large-scale-agile
+  @testcontainers-java, @stubbing-mocking-mockitio @large-scale-agile
 ...
 
 # Program UML
@@ -97,15 +97,15 @@ Within this project, the Java unit testing framework JUnit will be used.
 `JUnit5` test for checking in process in `FlightBooking.java`,
 
 ```java
-public boolean checkIn() {
-    if(LocalDateTime.now().isAfter(flight.getFlightStart())){
+public boolean checkIn(){
+        if(LocalDateTime.now().isAfter(flight.getFlightStart())){
         hasMissedFlight=true;
         return false;
-    }
-    hasCheckedIn=true;
-    checkInTime=LocalDateTime.now();
-    return true;
-}
+        }
+        hasCheckedIn=true;
+        checkInTime=LocalDateTime.now();
+        return true;
+        }
 ```
 
 The unit test created to test the `checkIn` method in the `FlightBooking` class.
@@ -189,8 +189,8 @@ Narrow integration tests can be implemented through many libraries: `JUnit`, `Sp
 information. This external service would require integration testing with the Customer class and code
 that reads the customer information from the database. Using the library `testcontainers`, we create
 a temporary isolated SQL database through docker, we then connect to it, interact with the database
-through the customer's SQL classes, and check if those interactions propagate to the database. 
-If the tests succeed, the database and program are successfully integrated.
+through the customer's SQL classes, and check if those interactions propagate to the database. If the
+tests succeed, the database and program are successfully integrated.
 
 Integration test using `testcontainer` and the `Customer` class [@testcontainers-java],
 
@@ -288,9 +288,28 @@ public class CustomerIntegrationTest {
 ```
 
 In a broad integration test, the process of creating a customer and booking the customer on a holiday
-and that integration between these two concepts could be tested. Alternatively, APIs that are external
-to Valley Cruise's network such as potential flight tracking APIs would be included in broad tests
-due to a lack of control over them.
+and that integration between these two concepts could be tested. Alternatively, APIs that are
+external to Valley Cruise's network such as potential flight tracking APIs would be included in broad
+tests due to a lack of control over them.
+
+## Contract Testing
+
+![Contract testing [@martin-fowler-contract-test]](images/contract-testing.png){width=75%}
+
+Integration testing is very effective when the tester controls the external services. However, speed
+and reliability decreases when tests occur between internal external, remote services. The external
+service can be slow, update with breaking changes, or have downtime. These are very undesirable in a
+test. To solve this issue, a test double is created through stubbing the remote service; this is when
+the class is emulated by the test software, returning predefined information when called. However, it
+is important that the test double is accurate to the remote service otherwise the developer will not
+be aware of when changes need to made to code to reflect the service's changes. Therefore, contract
+test's are used. Martin Fowler [-@martin-fowler-contract-test] describes them as tests that, 'check
+all the calls against your test doubles return the same results as a call to the external service
+world'. Failures in the contact tests should alert a developer to look at the codebase and the
+external service to check they still integrate well. The test double should then be updated
+accordingly. Within the Valley Cruises service, potential uses of the contract test would be
+interacting with plane tracking APIs, postcode APIs for customer registration, and interacting with
+civil aviation authorities for pilot licencing.
 
 ## End to end testing
 
@@ -316,11 +335,12 @@ organisation:
 
 Should the service require any external APIs. These could be tracking APIs offered by various
 airports, or apis offered by the FIA (British equivalent) to ensure that planes are correctly en
-route. Then the implementation of contact testing can ensure that updates to API returns and
+route. Then the implementation of contract testing can ensure that updates to API returns and
 interfaces are quickly recognised and corrected. To ensure that the service does not suffer for too
 long.
 
 End to end user testing.
+
 # Manual Testing
 
 # References
