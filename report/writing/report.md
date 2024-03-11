@@ -98,14 +98,14 @@ Within this project, the Java unit testing framework JUnit will be used.
 
 ```java
 public boolean checkIn(){
-        if(LocalDateTime.now().isAfter(flight.getFlightStart())){
-        hasMissedFlight=true;
+    if(LocalDateTime.now().isAfter(flight.getFlightStart())){
+        hasMissedFlight = true;
         return false;
-        }
-        hasCheckedIn=true;
-        checkInTime=LocalDateTime.now();
-        return true;
-        }
+    }
+    hasCheckedIn = true;
+    checkInTime = LocalDateTime.now();
+    return true;
+}
 ```
 
 The unit test created to test the `checkIn` method in the `FlightBooking` class.
