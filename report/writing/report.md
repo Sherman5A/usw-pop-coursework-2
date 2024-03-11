@@ -190,7 +190,11 @@ information. This external service would require integration testing with the Cu
 that reads the customer information from the database. Using the library `testcontainers`, we create
 a temporary isolated SQL database through docker, we then connect to it, interact with the database
 through the customer's SQL classes, and check if those interactions propagate to the database. If the
-tests succeed, the database and program are successfully integrated.
+tests succeed, the database and program are successfully integrated. In Valley Cruises application,
+narrow integration tests will be used with the service's database for customer, holiday, flight,
+and cruise information. Furthermore, narrow intergration tests can be used for any file input or
+output in Valley cruises operations; these IO operations may be used to read images, Welsh language
+localisation text, or configuration files for the service.
 
 Integration test using `testcontainer` and the `Customer` class [@testcontainers-java],
 
@@ -311,11 +315,44 @@ accordingly. Within the Valley Cruises service, potential uses of the contract t
 interacting with plane tracking APIs, postcode APIs for customer registration, and interacting with
 civil aviation authorities for pilot licencing.
 
-## End to end testing
+## End-to-end Testing
+
+End-to-end tests cover the entire application, including the user interface. The user interface of
+the application is automatically run through by the testing application. Inputs should correctly
+trigger their actions, the correct data should be displayed, and the UI states should change when
+expected to. [@martin-fowler-broad-stack-test] Furthermore, the layout of the frontend can be
+visually tested. As the testing tool proceeds through the service, screenshots of layouts are taken;
+these screenshots are compared to previous iterations and control screenshots. Any discrepancies are
+flagged to the developers for manual checking [@browserstack-selenium-visual-tests]. End-end-testings
+major advantage is that it exercises the whole application and its connections connected; errors in
+components that other tests were unable to find are discovered. However, end-to-end tests are far
+more brittle than other testing categories. Browser peculiarities, timings, model dialogues, and
+animations can create false positives that have to be debugged. Thus, these tests take more time and
+specialities to develop. Moreover, they must be regularly maintained when changes are made to user
+interface and data. These tests are far more expensive computationally, taking longer to complete.
+Therefore, far fewer of these tests are created and run, in accordance with the testing pyramid, so
+high-value scenarios are prioritised. In Valley Cruises' case, browsing the holidays, creating an
+account, adding the holiday to the cart, paying for the holiday, and managing holidays in your
+account.
+
+End-to-end testing for this project will be implemented by a framework supported in Java - `Selenium`.
+`Selenium` uses the browser to automatically call a website, interact and enter data into it, and check
+that the correct changes are made. Whilst doing this, `Selenium` can take screenshots of the process,
+run in a headless, non-graphical browser, or run on a server with no graphical user interface.
+
+Example of an end-to-end test using `Selenium` in Java,
+
+```java
+
+
+```
+
+However, end-to-end tests take longer
+to write and maintain. Moreover, they are the most computationally expensive test.
+
+Selenium Webdriver
 
 Input validation etc.
-
-## Test driven development
 
 ## Implementation with continuous integration services
 
