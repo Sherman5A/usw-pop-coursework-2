@@ -63,32 +63,28 @@ effective, non-brittle E2E testing increases development time costs, making a la
 impractical. Finally, E2E testing costs more computationally than unit and integration testing,
 therefore tests can not run as frequently, decreasing daily coverage compared to unit and integration
 testing. On the other hand, unit testing, despite being quick, only deals with small independent
-slices of the program, missing tests concerning external services and how they integrate with each
+slices of the program, lacking coverage on external services and how they integrate with each
 other. Therefore, service, or integration testing, acts middleman to avoid testing external
 dependencies such as databases, APIs and user input through the user interface.
 
-The explanation on the testing pyramid provided short insights into the stages. The following report
-will delve into the details and implementation of these layers.
+The explanation on the testing pyramid provided short insights into the stages. The following will
+will explain each layer in further depth and provide example implementations.
 
 ### Unit tests
 
-The first stages of testing occur during the development and programming process. The project will
-make extensive use of unit tests; these tests involve writing isolated automated tests that target
-small sections of the program, known as units.
-
-Creation of the unit test involves developing a criteria, referred to the test case.
-
-The unit returns output
-that is compared to the test's criteria that is known to be correct by the developers.
-
-Ensuring that these small units of the program correct
-
-Testing lots of small units that integrate to form a complex program reduces the amount of uncertain
-variables compared to a large monolithic test of the end result.
-
-Furthermore,
-
-Within this project, the Java unit testing framework JUnit will be used.
+The first stages of testing occur during the development and programming process. Valley Cruises will
+use unit tests as its foundation; these tests involve writing isolated
+automated tests targeting small sections of the program, known as units. A single project can have
+many unit tests; a common amount is one unit test per production class, however even more can be
+added. Creation of the unit test involves developing a criteria, referred to as the test case. The
+criteria should not be too strict, otherwise the test would break every time code is changed, but it
+should not be too general either. A good way to implement unit tests is through check observable 
+behaviours; Martin Fowler [-@martin-fowler-pyramid], states, 'think about, if I enter values x and y,
+will the result be z? instead of, if I enter x and y, will the method call class A first, then call
+class B and then return the result of class A plus the result of class B?'. Testing lots of small 
+units that integrate to form a complex program reduces the amount of uncertain variables compared
+to a large monolithic end-to-end tests. Unit tests will see use in most of Valley Cruises' production
+classes. Within this project, the Java unit testing framework JUnit will be used.
 
 `JUnit5` test for checking in process in `FlightBooking.java`,
 
@@ -398,13 +394,6 @@ public class LoginTest {
     }
 }
 ```
-
-However, end-to-end tests take longer
-to write and maintain. Moreover, they are the most computationally expensive test.
-
-Selenium Webdriver
-
-Input validation etc.
 
 ## Manual Testing
 
