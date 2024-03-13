@@ -38,16 +38,12 @@ required, the tests require maintenance, and implementing testing requires eithe
 testing specialist [@automated-testing-article]. Despite these disadvantages, when automated testing
 is implemented early into a project's development its advantages far outweigh the detriments.
 Catching errors early without manual testing reduces the cost of finding and then solving them, in
-addition to improving the structure of the project, as seen in processes like test-driven development
-that will be discussed later. Overall, automated testing is an extremely valuable area with a
-significant role in the project's development process.
+addition to improving the structure of the project, as seen in processes like test-driven development.
+Overall, automated testing is an extremely valuable area with a significant role in the project's
+development process.
 
-- Ensure that caught as they can become costly with time
 
-The time invested by creating these automated tests can be recouped by the time saved in manual
-testing stages.
-
-## Testing pyramid
+### Testing pyramid
 
 ![Testing Pyramid [@google-test-blog]](images/testing-pyramid.png){height=35%}
 
@@ -74,7 +70,7 @@ dependencies such as databases, APIs and user input through the user interface.
 The explanation on the testing pyramid provided short insights into the stages. The following report
 will delve into the details and implementation of these layers.
 
-## Unit tests
+### Unit tests
 
 The first stages of testing occur during the development and programming process. The project will
 make extensive use of unit tests; these tests involve writing isolated automated tests that target
@@ -137,12 +133,12 @@ class FlightBookingTest {
         testFlight = Mockito.mock(Flight.class);
         // Set what to return when getFlightStart() is called
         Mockito.when(testFlight.getFlightStart()).thenReturn(
-                earlyDateTime
+            earlyDateTime
         );
 
         // Call the check-in process
         testFlightBooking = new FlightBooking(
-                testFlight, "economy", 12, 200
+            testFlight, "economy", 12, 200
         );
         assertTrue(testFlightBooking.checkIn());
     }
@@ -156,19 +152,19 @@ class FlightBookingTest {
         testFlight = Mockito.mock(Flight.class);
         // Set return time to the future to fail check-in
         Mockito.when(testFlight.getFlightStart()).thenReturn(
-                lateDateTime
+            lateDateTime
         );
 
         // Call the check-in process
         testFlightBooking = new FlightBooking(
-                testFlight, "economy", 12, 200
+            testFlight, "economy", 12, 200
         );
         assertFalse(testFlightBooking.checkIn());
     }
 }
 ```
 
-## Integration tests
+### Integration tests
 
 Integration, or service layer, testing involves verifying that independent components of the program
 successfully interact and connect together as expected [@test-automation-theory-practice]. These
@@ -205,6 +201,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.testcontainers.containers.PostgreSQLContainer;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 /**
@@ -256,13 +254,13 @@ public class CustomerIntegrationTest {
     @DisplayName("Database create customer")
     public void dbCreateCustomer() {
         customer = new Customer("Jake Real", "jakeemail@email.com",
-                "3 Cool Road, Swandiff"
+            "3 Cool Road, Swandiff"
         );
         // Add the created customer to the database
         customerDatabase.addCustomer(customer)
         // Test that customer was created in the database
         assertEquals("Jake Real", customerDatabase.getCustomerByName(
-                "Jake Real").getFullName()
+            "Jake Real").getFullName()
         );
     }
 
@@ -274,13 +272,13 @@ public class CustomerIntegrationTest {
     @DisplayName("Database delete customer")
     public void dbDeleteCustomer() {
         customer = new Customer("Jake Real", "jakeemail@email.com",
-                "3 Cool Road, Swandiff"
+            "3 Cool Road, Swandiff"
         );
         // Add the created customer to the database
         customerDatabase.addCustomer(customer);
         // Test that customer was created in the database
         assertEquals("Jake Real", customerDatabase.getCustomerByName(
-                "Jake Real").getFullName()
+            "Jake Real").getFullName()
         );
         // Delete the customer from the database
         customerDatabase.deleteCustomerById(customer.getId);
@@ -296,7 +294,7 @@ and that integration between these two concepts could be tested. Alternatively, 
 external to Valley Cruise's network such as potential flight tracking APIs would be included in broad
 tests due to a lack of control over them.
 
-## Contract Testing
+### Contract Testing
 
 ![Contract testing [@martin-fowler-contract-test]](images/contract-testing.png){width=75%}
 
@@ -315,7 +313,7 @@ accordingly. Within the Valley Cruises service, potential uses of the contract t
 interacting with plane tracking APIs, postcode APIs for customer registration, and interacting with
 civil aviation authorities for pilot licencing.
 
-## End-to-end Testing
+### End-to-end Testing
 
 End-to-end tests cover the entire application, including the user interface. The user interface of
 the application is automatically run through by the testing application. Inputs should correctly
@@ -323,28 +321,82 @@ trigger their actions, the correct data should be displayed, and the UI states s
 expected to. [@martin-fowler-broad-stack-test] Furthermore, the layout of the frontend can be
 visually tested. As the testing tool proceeds through the service, screenshots of layouts are taken;
 these screenshots are compared to previous iterations and control screenshots. Any discrepancies are
-flagged to the developers for manual checking [@browserstack-selenium-visual-tests]. End-end-testings
+flagged to the developers for manual checking [@browserstack-selenium-visual-tests]. End-end-testing's
 major advantage is that it exercises the whole application and its connections connected; errors in
 components that other tests were unable to find are discovered. However, end-to-end tests are far
 more brittle than other testing categories. Browser peculiarities, timings, model dialogues, and
 animations can create false positives that have to be debugged. Thus, these tests take more time and
-specialities to develop. Moreover, they must be regularly maintained when changes are made to user
+specialists to develop. Moreover, they must be regularly maintained when changes are made to user
 interface and data. These tests are far more expensive computationally, taking longer to complete.
 Therefore, far fewer of these tests are created and run, in accordance with the testing pyramid, so
 high-value scenarios are prioritised. In Valley Cruises' case, browsing the holidays, creating an
 account, adding the holiday to the cart, paying for the holiday, and managing holidays in your
-account.
+account would make good areas to use end-to-end testing on.
 
 End-to-end testing for this project will be implemented by a framework supported in Java - `Selenium`.
 `Selenium` uses the browser to automatically call a website, interact and enter data into it, and check
 that the correct changes are made. Whilst doing this, `Selenium` can take screenshots of the process,
 run in a headless, non-graphical browser, or run on a server with no graphical user interface.
 
-Example of an end-to-end test using `Selenium` in Java,
+Example of using `Selenium` to test logging in to Valley Cruises,
 
 ```java
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+public class LoginTest {
+    private WebDriver driver;
+    private String username = "testing";
+    private String password = "testing";
+
+    @BeforeAll
+    public static void setUpDriver() throws Exception {
+        WebDriverManager.firefoxdriver.setup();
+    }
+
+    @BeforeEach
+    public void setUp() {
+        driver = new FirefoxDriver();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        driver.quit();
+    }
+
+    @Test
+    public void loginWebsite() {
+        driver.get("https://www.valleycruises.com/login");
+
+        WebElement usernameField = driver.findElement(
+            By.id("login-username")
+        );
+        WebElement passwordField = driver.findElement(
+            By.id("login-password")
+        );
+        WebElement loginButton = driver.findElement(
+            By.id("login-button")
+        );
+
+        usernameField.sendKeys(username);
+        passwordField.sendKeys(password);
+        loginButton.click();
+
+        WebElement usernameLabel = driver.findElement(
+            By.id("label-username")
+        );
+        assertEquals(usernameField.getText(), username);
+    }
+}
 ```
 
 However, end-to-end tests take longer
@@ -354,7 +406,7 @@ Selenium Webdriver
 
 Input validation etc.
 
-## Implementation with continuous integration services
+## Manual Testing
 
 ## Conclusion
 
@@ -377,8 +429,6 @@ interfaces are quickly recognised and corrected. To ensure that the service does
 long.
 
 End to end user testing.
-
-# Manual Testing
 
 # References
 
