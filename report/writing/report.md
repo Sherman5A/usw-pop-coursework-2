@@ -407,10 +407,28 @@ public class LoginTest {
 }
 ```
 
-End to end test tables,
+## Manual Testing
+
+Manual testing is when testers go through the program using its features, checking for correct
+behaviour. The testers follow a test plan that describes the scope, methodology, test schedule, what
+resources are used and tools that are allocated for the test; This plan forms the general structure of
+the test. The tester then follows multiple more detailed test cases. These outline the: steps taken
+by the tester, the expected outcomes of said tests, and after testing, the actual outcomes of the
+test, and whether it passed or failed. Various test cases fields can be seen in tables 1 and 2. 
+Manual testing is most suitable for testing areas where
+automation and computers fail; these are accessibility testing, computers are unable emulate how
+a visually impaired people will screen readers to access a service; layout testing, computers
+struggle to find visual defects in programs so manually testing on different layouts and screens
+is preferred; and exploratory testing, that emphasises tester freedom resulting in tests that
+cover areas that automation might miss.
+
+### Static Testing
+
+Finally, static testing is a subset of manual testing in which the program is not executed. 
+
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
- Test          Test                      Reason                                                                      Expected           Actual
+ Test          Test                       Reason                                                                     Expected           Actual
  number        data                                                                                                  outcome            outcome
 ------------- -------------------------- -------------------------------------------------------------------------- ------------------ ------------------
  1             Password = testing123@@    Test that a password meeting the requirements of containing                Valid password     Valid password
