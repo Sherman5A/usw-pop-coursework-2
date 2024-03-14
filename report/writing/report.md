@@ -19,6 +19,17 @@ notcite: |
 
 ## Introduction
 
+Testing is the process examining software's behaviour to check that it meets the required
+specifications of the service without errors arising. The process provides information concerning the
+software under the conditions that the test is run under; however, it only guarantees that the
+software will not fail under those specific conditions. Thus, it is imperative that the testing
+strategy for the company is comprehensive and covers most facets of the service to avoid
+undetected faults. Achieving large coverage manually would require considerable amounts of people
+hours within the company. Therefore, to tackle this problem, this report outlines a testing strategy
+making use of both manual and automated, computer-operated test strategies to achieve high coverage 
+testing without major slowdowns in releases, or considerable expansions to testers and the quality 
+assurance team.
+
 ## Automated Testing
 
 The project will make extensive use of automated testing throughout development and deployment.
@@ -26,7 +37,7 @@ Automated testing allows a developer to monitor if any defects are present in th
 manually testing and searching for errors, saving time. A report by the National Institute of
 Standards & Technology [-@nist-report] reports software bugs are estimated to have cost the United
 States of America $59.5 billion annually. They estimated that approximately $22.5 billion, a third of
-the cost, could be saved through improvements in testing infrastructure. The impact of automated
+the cost, could be saved through improvements to testing infrastructure. The impact of automated
 testing is not only observed on the macro scale, but also on the team scale. Salesforce, customer
 relationship management software provider, reported the following reductions after implementing
 automated testing: staff involved in application deployment reduced by 65%, two to 3 hours of final
@@ -72,8 +83,8 @@ will explain each layer in further depth and provide example implementations.
 
 ### Unit tests
 
-The first stages of testing occur during the development and programming process. Valley Cruises will
-use unit tests as its foundation; these tests involve writing isolated
+The first stages of testing occur during the development and programming process. The company
+uses unit tests as its foundation; these tests involve writing isolated
 automated tests targeting small sections of the program, known as units. A single project can have
 many unit tests; a common amount is one unit test per production class, however even more can be
 added. Creation of the unit test involves developing a criteria, referred to as the test case. The
@@ -83,8 +94,9 @@ behaviours; Martin Fowler [-@martin-fowler-pyramid], states, 'think about, if I 
 will the result be z? instead of, if I enter x and y, will the method call class A first, then call
 class B and then return the result of class A plus the result of class B?'. Testing lots of small
 units that integrate to form a complex program reduces the amount of uncertain variables compared
-to a large monolithic end-to-end tests. Unit tests will see use in most of Valley Cruises' production
-classes. Within this project, the Java unit testing framework JUnit will be used.
+to a large monolithic end-to-end tests. Unit tests are used in most of the companies production
+classes to ensure good coverage of the entire codebase. Within the company, the Java unit testing 
+framework `JUnit` is used.
 
 `JUnit5` test for checking in process in `FlightBooking.java`,
 
@@ -184,9 +196,9 @@ a temporary isolated SQL database through docker, we then connect to it, interac
 through the customer's SQL classes, and check if those interactions propagate to the database. If the
 tests succeed, the database and program are successfully integrated. In Valley Cruises application,
 narrow integration tests will be used with the service's database for customer, holiday, flight,
-and cruise information. Furthermore, narrow intergration tests can be used for any file input or
-output in Valley cruises operations; these IO operations may be used to read images, Welsh language
-localisation text, or configuration files for the service.
+and cruise information. Furthermore, narrow integration tests can be used for any file input or
+output in Valley cruises operations; these input and output operations may be used to read images,
+Welsh language localisation text, or configuration files for the service.
 
 Integration test using `testcontainer` and the `Customer` class [@testcontainers-java],
 
@@ -434,34 +446,24 @@ Table: Tests for password input in frontend,
 
 Table: Tests for searching by price in frontend,
 
-## Manual Testing
+
+### Dynamic Testing
 
 
-
-
-Test tables
+### Static testing
 
 ## Conclusion
 
-Building on top of unit testing, continuous integration ensures that all developers within the
-organisation:
-
-- feature flags
-- ui testing
-- test lab
-- testing pyramid
-- e2e testing - operational - max interaction - require running services - automated ui testing server
-- integration testing - testing api code interactions, database connection
-- black box testing - less interaction -
-- martin fowler testing articles
-
-Should the service require any external APIs. These could be tracking APIs offered by various
-airports, or apis offered by the FIA (British equivalent) to ensure that planes are correctly en
-route. Then the implementation of contract testing can ensure that updates to API returns and
-interfaces are quickly recognised and corrected. To ensure that the service does not suffer for too
-long.
-
-End to end user testing.
+In conclusion, the company uses a mixed testing strategy of automated and manual tests with a bias to
+automation. The structure of the automated tests follows the testing pyramid, with many unit tests, a
+medium number of integration and contract tests, and finally a fewer amount of end-to-end tests.
+This strategy results in a bottom-up approach to automated testing where most errors should be caught 
+before the final end-to-end testing, ensuring that they are caught quickly before causing costing 
+considerable resources to fix. The manual testing process covers areas that are difficult or too in 
+depth to be automated, such as layout testing, accessibility testing, and mimicing a user's flow 
+through the program. Overall, the testing strategy of the company attempts to ensure a quick 
+throughput of software, whilst keeping good testing coverage of the released program in an attempt
+to catch errors prior to public release.
 
 # References
 
