@@ -78,10 +78,10 @@ automated tests targeting small sections of the program, known as units. A singl
 many unit tests; a common amount is one unit test per production class, however even more can be
 added. Creation of the unit test involves developing a criteria, referred to as the test case. The
 criteria should not be too strict, otherwise the test would break every time code is changed, but it
-should not be too general either. A good way to implement unit tests is through check observable 
+should not be too general either. A good way to implement unit tests is through check observable
 behaviours; Martin Fowler [-@martin-fowler-pyramid], states, 'think about, if I enter values x and y,
 will the result be z? instead of, if I enter x and y, will the method call class A first, then call
-class B and then return the result of class A plus the result of class B?'. Testing lots of small 
+class B and then return the result of class A plus the result of class B?'. Testing lots of small
 units that integrate to form a complex program reduces the amount of uncertain variables compared
 to a large monolithic end-to-end tests. Unit tests will see use in most of Valley Cruises' production
 classes. Within this project, the Java unit testing framework JUnit will be used.
@@ -395,7 +395,51 @@ public class LoginTest {
 }
 ```
 
+End to end test tables,
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+ Test          Test                      Reason                                                                      Expected           Actual
+ number        data                                                                                                  outcome            outcome
+------------- -------------------------- -------------------------------------------------------------------------- ------------------ ------------------
+ 1             Password = testing123@@    Test that a password meeting the requirements of containing                Valid password     Valid password
+                                          more 7 characters or more, 2 or more numbers and symbols is
+                                          accepted
+
+
+ 2             Password = testing123      Test that a password not meeting the requirements of containing            Invalid password   Invalid password
+                                          more 7 characters or more, 2 or more numbers and symbols is not accepted
+
+
+ 3             Password = testing@@#      Test that a password not meeting the requirements of containing            Invalid password   Invalid password
+                                          more 7 characters or more, 2 or more numbers and symbols is not accepted
+
+ 4             Password = testing         Test that a password not meeting the requirements of containing            Invalid password   Invalid password
+                                          more 7 characters or more, 2 or more numbers and symbols is not accepted
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Table: Tests for password input in frontend,
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+ Test          Test                      Reason                                                                      Expected           Actual
+ number        data                                                                                                  outcome            outcome
+------------- -------------------------- -------------------------------------------------------------------------- ------------------ ------------------
+ 1             Search = £2000             Test that a valid search amount correctly returns a search query           Valid search       Valid search
+
+ 2             Search = -£2000            Test that a negative money search amounts does not return a search         Invalid search     Invalid search
+                                          query as negative money is not possible
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Table: Tests for searching by price in frontend,
+
 ## Manual Testing
+
+
+
+
+Test tables
 
 ## Conclusion
 
